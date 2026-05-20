@@ -6,7 +6,7 @@ document.getElementById('add-url').addEventListener('click', function() {
     newLabel.textContent = 'Your URL:';
 
     let newInput = document.createElement('input');
-    newInput.setAttribute('type', 'url');
+    newInput.setAttribute('type', 'text');
     newInput.setAttribute('id', 'url-' + urlCount);
     newInput.setAttribute('name', 'url-' + urlCount);
     newInput.required = true;
@@ -52,7 +52,7 @@ document.getElementById('utm-form').addEventListener('submit', function(event) {
 
             document.body.removeChild(tempElement);
 
-            alert('Your URL is now copied!');
+            showCopyNotification('Your URL is now copied!');
         });
 
         container.appendChild(newPara);
@@ -80,6 +80,9 @@ presetButtons.forEach(button => {
 // Building the UTM parameters
 
 function buildUTMUrl(baseURL, utmSource, utmMedium, utmCampaign, utmTerm) {
+    if (!baseURL.match(/^https?:\/\//)) {
+        baseURL = 'https://' + baseURL;
+    }
     let url = new URL(baseURL);
     if (utmSource) {
         url.searchParams.set('utm_source', utmSource);
@@ -104,6 +107,33 @@ document.getElementById('linkedin-personal').addEventListener('click', function(
         campaignInput.focus();
     }
 });
+
+// Custom copy notification popup
+
+function showCopyNotification(message) {
+    let overlay = document.createElement('div');
+    overlay.classList.add('copy-overlay');
+    document.body.appendChild(overlay);
+
+    let notification = document.createElement('div');
+    notification.classList.add('copy-notification');
+    notification.textContent = message;
+    document.body.appendChild(notification);
+
+    setTimeout(() => {
+        notification.classList.add('show');
+        overlay.classList.add('show');
+    }, 10);
+
+    setTimeout(() => {
+        notification.classList.remove('show');
+        overlay.classList.remove('show');
+        setTimeout(() => {
+            document.body.removeChild(notification);
+            document.body.removeChild(overlay);
+        }, 300);
+    }, 1000);
+}
 
 // Click on logo refresh the page
 

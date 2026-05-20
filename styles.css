@@ -198,3 +198,44 @@ footer {
 .preset.flash {
     animation: flash 0.5s;
 }
+
+/* Copy notification overlay */
+.copy-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.8);
+    z-index: 999;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    pointer-events: none;
+}
+
+.copy-overlay.show {
+    opacity: 1;
+}
+
+/* Copy notification popup */
+.copy-notification {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #07184D;
+    color: white;
+    padding: 21px 42px;
+    border-radius: 8px;
+    font-size: 21px;
+    font-family: inherit;
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    pointer-events: none;
+}
+
+.copy-notification.show {
+    opacity: 1;
+}
